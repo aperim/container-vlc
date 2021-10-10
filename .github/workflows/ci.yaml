@@ -141,6 +141,7 @@ jobs:
       - lint-yamllint
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         os:
           - name: ubuntu
@@ -199,7 +200,7 @@ jobs:
           push: false
           builder: ${{ steps.buildx.outputs.name }}
           context: ./container
-          file: "./container/Dockerfile.hirsute"
+          file: "./container/Dockerfile.${{ matrix.os.name }}.${{ matrix.os.variant }}"
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
