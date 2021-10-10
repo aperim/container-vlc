@@ -200,6 +200,7 @@ jobs:
           push: false
           builder: ${{ steps.buildx.outputs.name }}
           context: ./container
+          # yamllint disable-line rule:line-length
           file: "./container/Dockerfile.${{ matrix.os.name }}.${{ matrix.os.variant }}"
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
