@@ -1,5 +1,5 @@
 ARG OS_CONTAINER=ubuntu
-ARG OS_VARIENT=hirsute
+ARG OS_VARIENT=impish
 FROM ${OS_CONTAINER}:${OS_VARIENT} as builder
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
@@ -260,88 +260,90 @@ COPY --from=builder /usr/src/srt /usr/src/srt
 COPY --from=builder /usr/src/vlc /usr/src/vlc
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    imagemagick \
     autoconf \
     build-essential \
     cmake \
-    libtool-bin \
-    libdbus-1-dev \
-    wayland-protocols \
-    libpulse-dev \
-    libsm-dev \
-    libice-dev \
-    libxcb-shm0-dev \
-    libasound2-dev \
-    libxcb-render0-dev \
-    libjack-jackd2-dev \
-    libdc1394-dev \
-    libavc1394-dev \
-    libzvbi-dev \
-    libxcb-composite0-dev \
-    libwayland-dev \
-    libjpeg-dev \
-    libgcrypt20-dev \
-    libgnutls28-dev \
-    libavformat-dev \
-    libswscale-dev \
-    libcddb2-dev \
-    libdvdnav-dev \
-    libbluray-dev \
-    libdvbpsi-dev \
-    libsmbclient-dev \
-    libpcsclite-dev \
-    libssh2-1-dev \
-    libnfs-dev \
-    libmtp-dev \
-    libshout-dev \
-    libspatialaudio-dev \
-    libmysofa-dev \
-    libsamplerate0-dev \
-    libsoxr-dev \
-    libebur128-dev \
-    libspeexdsp-dev \
-    libmad-ocaml-dev \
+    ffmpeg \
+    imagemagick \
     liba52-0.7.4-dev \
-    libdca-dev \
-    libfaad-dev \
-    libfluidsynth-dev \
-    libmpg123-dev \
-    libmpeg2-4-dev \
-    librsvg2-dev \
+    libarchive-dev \
+    libasound2-dev \
     libass-dev \
-    libflac-dev \
-    libkate-dev \
-    libopus-dev \
-    libva-dev \
-    libx264-dev \
-    libx265-dev \
-    libshine-dev \
-    libtwolame-dev \
-    libdav1d-dev \
-    libxcb-keysyms1-dev \
-    libmodplug-dev \
-    libebml-dev \
-    libmatroska-dev \
-    libsecret-1-dev \
-    liblua5.2-dev \
-    libtag1-dev \
-    libnotify-dev \
     libavahi-client-dev \
     libavahi-common-dev \
-    libupnp-dev \
-    libudev-dev \
+    libavc1394-dev \
+    libavformat-dev \
+    libbluray-dev \
+    libcaca-dev \
+    libcddb2-dev \
     libchromaprint-dev \
-    libprotobuf-dev \
-    libxcb-randr0-dev \
-    libarchive-dev \
+    libdav1d-dev \
+    libdbus-1-dev \
+    libdc1394-dev \
+    libdca-dev \
+    libdrm-dev \
+    libdvbpsi-dev \
+    libdvdnav-dev \
+    libebml-dev \
+    libebur128-dev \
+    libfaad-dev \
+    libflac-dev \
+    libfluidsynth-dev \
+    libgcrypt20-dev \
+    libgles-dev \
+    libgnutls28-dev \
+    libice-dev \
+    libjack-jackd2-dev \
+    libjpeg-dev \
+    libkate-dev \
+    liblua5.2-dev \
+    libmad-ocaml-dev \
+    libmatroska-dev \
+    libmodplug-dev \
+    libmpeg2-4-dev \
+    libmpg123-dev \
+    libmtp-dev \
+    libmysofa-dev \
+    libnfs-dev \
+    libnotify-dev \
+    libopus-dev \
+    libpcsclite-dev \
     libplacebo-dev \
     libpostproc-dev \
-    libgles-dev \
-    libxkbcommon-x11-dev \
+    libprotobuf-dev \
+    libpulse-dev \
+    librsvg2-dev \
+    libsamplerate0-dev \
+    libsecret-1-dev \
+    libshine-dev \
+    libshout-dev \
+    libsm-dev \
+    libsmbclient-dev \
+    libsoxr-dev \
+    libspatialaudio-dev \
+    libspeexdsp-dev \
+    libssh2-1-dev \
+    libswscale-dev \
+    libtag1-dev \
+    libtool-bin \
+    libtwolame-dev \
+    libudev-dev \
+    libupnp-dev \
+    libva-dev \
+    libwayland-dev \
+    libx11-xcb-dev \
+    libx264-dev \
+    libx265-dev \
+    libxcb-composite0-dev \
+    libxcb-keysyms1-dev \
+    libxcb-randr0-dev \
+    libxcb-render0-dev \
+    libxcb-shm0-dev \
     libxcb-xkb-dev \
-    libdrm-dev \
-    libcaca-dev \
-    libx11-xcb-dev && \
+    libxkbcommon-x11-dev \
+    libzvbi-dev \
+    mpg123 \
+    wayland-protocols && \
     addgroup --gid 1001 vlc && \
     adduser --home /vlc --gecos "VLC User" --shell /sbin/nologin --uid 1001 --gid 1001 --disabled-password --disabled-login vlc && \
     cd /usr/src/live && \
@@ -367,10 +369,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 COPY rootfs/ /
-
-WORKDIR /vlc
-
-USER vlc
 
 ARG BUILD_DATE
 ARG BUILD_NAME
