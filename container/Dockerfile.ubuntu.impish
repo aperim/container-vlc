@@ -175,7 +175,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     cd /usr/src && \
     curl -L "http://www.live555.com/liveMedia/public/live555-latest.tar.gz" -o live555.tgz && \
     tar zxvf live555.tgz && \
-    git clone -b ${VLC_VERSION} --depth 1 git://git.videolan.org/vlc.git && \
+    git clone --branch ${VLC_VERSION} --single-branch https://github.com/videolan/vlc.git && \
     git clone --depth 1 https://github.com/LibVNC/libvncserver.git && \
     git clone --depth 1 https://code.videolan.org/videolan/aribb25.git && \
     git clone --depth 1 https://gitlab.xiph.org/xiph/rnnoise.git && \
